@@ -22,7 +22,7 @@ static long long int num_steps = 1000000000;
 double step;
 
 // add synchronization primitive(s) here
-
+mutex m;
 // Do not modify this function
 inline void single_sum_thread(int id, int num_threads, double sum[NUM_THREADS][PAD])
 {
@@ -36,8 +36,12 @@ inline void single_sum_thread(int id, int num_threads, double sum[NUM_THREADS][P
 }
 
 // TODO
-inline void pi_sum_thread(/* add necessary arguments here */)
+inline void pi_sum_thread(int id,double sum[NUM_THREADS][PAD],double& pi)
 {
-    // add code here
+    //some fine threading here(hope you appreciate the humor)
+    m.lock();
+    pi += sum[id][0] * step;
+    m.unlock();
+    // simulate a long running task
     sleep(1); // DO NOT REMOVE THIS
 }
